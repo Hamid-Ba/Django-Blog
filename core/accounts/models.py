@@ -9,7 +9,7 @@ class UserManager(BaseUserManager):
             raise ValueError("Email Must Be Set")
         email = self.normalize_email(email)
         
-        user = self.model(email,**extra)
+        user = self.model(email=email,**extra)
         user.set_password(password)
         user.save()
         
@@ -37,6 +37,8 @@ class User(AbstractBaseUser,PermissionsMixin):
 
     created_data = models.DateTimeField(auto_now_add=True)
     updated_data = models.DateTimeField(auto_now=True)
+
+    USERNAME_FIELD = 'email'
 
     def __str__(self) -> str:
         return self.email
