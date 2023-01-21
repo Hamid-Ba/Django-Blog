@@ -9,7 +9,7 @@ class Post(models.Model):
     status = models.BooleanField()
     published_data = models.DateTimeField()
 
-    auhtor = models.ForeignKey(sting.AUTH_USER_MODEL,on_delete=models.CASCADE)
+    author = models.ForeignKey(sting.AUTH_USER_MODEL,on_delete=models.CASCADE)
     category = models.ForeignKey('Category',on_delete=models.SET_NULL,null=True)
 
     created_data = models.DateTimeField(auto_now_add=True)
@@ -24,3 +24,6 @@ class Category(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+    class Meta:
+        verbose_name_plural = "Categories"
