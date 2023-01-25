@@ -1,6 +1,10 @@
 from rest_framework import generics , views , permissions , authentication , status
 from rest_framework.response import Response
 from rest_framework_simplejwt import authentication as jwtAuth
+import jwt
+from jwt.exceptions import ExpiredSignatureError, InvalidSignatureError
+from django.contrib.auth import get_user_model
+from django.conf import settings
 
 from . import serializers
 from ... import models
@@ -15,6 +19,25 @@ class RegisterView(generics.CreateAPIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response('Please confirm your email address to complete the registration',status=status.HTTP_201_CREATED)
+
+class VerifyView(views.APIView):
+    """Verify View"""
+    permission_classes = [permissions.AllowAny]
+
+    def get(self, request,token):
+        simple_jwt = settings.SIMPLE_JWT
+        try :
+            res = jwt.decode(token,simple_jwt['SIGNING_KEY'],simple_jwt['ALGORITHM'])
+            user = get_user_model().objects.get(id=res['user_id'])
+            if user.is_verified: return Response({"details": "your account has already been verified"})
+     
+            user.is_verified = True
+            user.save()
+            return Response({'detail' : 'your account verified successfully'},status=status.HTTP_200_OK)
+        except ExpiredSignatureError as e:
+            return Response({'detail' : 'Your Verification Code Has Been Expired!'},status=status.HTTP_400_BAD_REQUEST)
+        except InvalidSignatureError as e:
+            return Response({'detail' : 'Your Verification Code is Not Valid!'},status=status.HTTP_400_BAD_REQUEST)
 
 class ChangePasswordView(generics.GenericAPIView):
     """Change Password View"""

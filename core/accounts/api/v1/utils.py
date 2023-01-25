@@ -23,6 +23,6 @@ class Email:
         # email_obj.send()
         message = f"""
         Hello Dear,\n
-        The Verification URL For You : http://127.0.0.1:8000/accounts/api/v1/activation/confirm/{token}
+        The Verification URL For You : http://127.0.0.1:8000/accounts/api/v1/verification/{token}/
         """
         send_mail(self.mail_subject, message, 'balalzadehhamid79@gmail.com',[token], fail_silently=False)
