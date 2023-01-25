@@ -58,9 +58,3 @@ class ProfileView(generics.RetrieveUpdateAPIView):
 
     def get_object(self):
         return models.Profile.objects.get(user=self.request.user)
-
-
-# when user registered , the acc would be created but not verified 
-# then send an email to user email for verification
-# the verification email is a jwt code that we would've generated for the user and it contains the user id
-# so by clicking the link who we've generated , user would be redirected to an url which make user acc verified
