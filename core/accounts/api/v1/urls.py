@@ -9,8 +9,9 @@ from . import views
 
 urlpatterns = [
     path('register/',views.RegisterView.as_view(),name='register'),
+    path('change_password/',views.ChangePasswordView.as_view(),name='change_password'),
+    # JWT Authentication URLs
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('token/verify_token/', TokenVerifyView.as_view(), name='token_verify'),
-    path('test_token/', views.TestAuthApi.as_view(),name="test_token")
 ]
