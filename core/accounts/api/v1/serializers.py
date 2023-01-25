@@ -1,8 +1,11 @@
 from rest_framework import serializers
 from django.contrib.auth.password_validation import validate_password
 from django.core import exceptions
+from django.contrib.auth import get_user_model
+from django.contrib.sites.shortcuts import get_current_site
 
 from ... import models
+from .utils import get_tokens_for_user ,Email
 
 class RegisterSerializer(serializers.ModelSerializer):
     """Register Serializer"""
@@ -24,7 +27,16 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         validated_data.pop('password1', None)
-        return super().create(validated_data)
+        
+        # Creating User
+        user = get_user_model().objects.create_user(**validated_data)
+        user.save()
+
+        # Generating Verification Code
+        the_code = get_tokens_for_user(user)
+        Email("Verification Code",get_current_site(self.context['request']),user.email).send_activation_email(the_code)
+
+        return user
 
 class ChangePasswordSerializer(serializers.Serializer):
     """Change Password Serializer"""
