@@ -27,6 +27,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         return super().create(validated_data)
 
 class ChangePasswordSerializer(serializers.Serializer):
+    """Change Password Serializer"""
     old_password = serializers.CharField(max_length=225,write_only=True)
     password = serializers.CharField(max_length=225,write_only=True)
     password1 = serializers.CharField(max_length=225,write_only=True)
@@ -42,3 +43,12 @@ class ChangePasswordSerializer(serializers.Serializer):
         user.save()
 
         return super().validate(attrs)
+
+class ProfileSerializer(serializers.ModelSerializer):
+    """Profile Serializer"""
+    email = serializers.EmailField(source = 'user.email',read_only=True)
+    # avatar = serializers.ImageField()
+    class Meta:
+        model = models.Profile
+        fields = '__all__'
+        read_only_fields = ['id','user','email','created_data','updated_data']
