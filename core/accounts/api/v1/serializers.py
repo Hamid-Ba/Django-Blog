@@ -6,6 +6,7 @@ from django.contrib.sites.shortcuts import get_current_site
 
 from ... import models
 from .utils import get_tokens_for_user ,Email
+from . import tasks
 
 class RegisterSerializer(serializers.ModelSerializer):
     """Register Serializer"""
@@ -34,8 +35,8 @@ class RegisterSerializer(serializers.ModelSerializer):
 
         # Generating Verification Code
         the_code = get_tokens_for_user(user)
-        Email("Verification Code",get_current_site(self.context['request']),user.email).send_activation_email(the_code)
-
+        tasks.send_activation_email.delay(subject="Verification Code",to_email=user.email,token=the_code)
+        
         return user
 
 class ChangePasswordSerializer(serializers.Serializer):

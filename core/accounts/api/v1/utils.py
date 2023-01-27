@@ -12,7 +12,7 @@ class Email:
         self.mail_subject = subject
         self.domain = domain
         self.to_email = to_email
-
+    
     def send_activation_email(self,token):
         # email_obj = EmailMessage(
         #         "activation_email.tpl",
