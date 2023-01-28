@@ -5,6 +5,9 @@ import jwt
 from jwt.exceptions import ExpiredSignatureError, InvalidSignatureError
 from django.contrib.auth import get_user_model
 from django.conf import settings
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
+from django.views.decorators.vary import vary_on_cookie, vary_on_headers
 
 from . import serializers
 from ... import models
@@ -58,3 +61,9 @@ class ProfileView(generics.RetrieveUpdateAPIView):
 
     def get_object(self):
         return models.Profile.objects.get(user=self.request.user)
+
+    # if user is authenticated cached his/her profile for 2 hours
+    @method_decorator(cache_page(60*60*2))
+    @method_decorator(vary_on_headers("Authorization",))
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
