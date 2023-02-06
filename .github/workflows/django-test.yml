@@ -17,4 +17,4 @@ jobs:
     - name: Setup Docker Compose
       run: docker-compose up -d
     - name: Run All Test
-      run: python /app/manage.py test
+      run: python /core/manage.py test
