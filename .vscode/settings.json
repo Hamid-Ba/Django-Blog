@@ -3,6 +3,6 @@
         "./core/core"
     ],
     "cSpell.words": [
-        "simplejwt"
+        "simplejwt",
     ]
 }
