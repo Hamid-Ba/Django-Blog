@@ -17,4 +17,4 @@ jobs:
     - name: Setup Docker Compose
       run: docker-compose up -d
     - name: Run All Test
-      run: docker-compose -f docker-compose.yml exec backend sh -c "python /app/manage.py test"
+      run: docker-compose exec backend sh -c "python /app/manage.py test"
