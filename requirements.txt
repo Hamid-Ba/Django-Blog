@@ -15,7 +15,7 @@ django-cors-headers
 # email third party modules
 django-mail-templated
 
-# refactoring and tests
+# refactoring & tests
 black
 flake8
 Faker
