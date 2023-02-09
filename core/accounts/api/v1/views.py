@@ -1,4 +1,10 @@
-from rest_framework import generics, views, permissions, authentication, status
+from rest_framework import (
+    generics,
+    views,
+    permissions,
+    authentication,
+    status,
+)
 from rest_framework.response import Response
 from rest_framework_simplejwt import authentication as jwtAuth
 import jwt
@@ -39,10 +45,14 @@ class VerifyView(views.APIView):
     def get(self, request, token):
         simple_jwt = settings.SIMPLE_JWT
         try:
-            res = jwt.decode(token, simple_jwt["SIGNING_KEY"], simple_jwt["ALGORITHM"])
+            res = jwt.decode(
+                token, simple_jwt["SIGNING_KEY"], simple_jwt["ALGORITHM"]
+            )
             user = get_user_model().objects.get(id=res["user_id"])
             if user.is_verified:
-                return Response({"details": "your account has already been verified"})
+                return Response(
+                    {"details": "your account has already been verified"}
+                )
 
             user.is_verified = True
             user.save()
@@ -77,7 +87,8 @@ class ChangePasswordView(generics.GenericAPIView):
         )
         serializer.is_valid(raise_exception=True)
         return Response(
-            {"detail": "your password changed successfully"}, status=status.HTTP_200_OK
+            {"detail": "your password changed successfully"},
+            status=status.HTTP_200_OK,
         )
 
 

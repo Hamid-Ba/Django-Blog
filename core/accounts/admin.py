@@ -7,8 +7,20 @@ class CustomUserAdmin(UserAdmin):
     """User Admin"""
 
     model = models.User
-    list_display = ["email", "is_active", "is_verified", "is_staff", "is_superuser"]
-    list_filter = ["email", "is_active", "is_verified", "is_staff", "is_superuser"]
+    list_display = [
+        "email",
+        "is_active",
+        "is_verified",
+        "is_staff",
+        "is_superuser",
+    ]
+    list_filter = [
+        "email",
+        "is_active",
+        "is_verified",
+        "is_staff",
+        "is_superuser",
+    ]
     search_fields = ["email"]
     ordering = ["email"]
 
@@ -22,7 +34,12 @@ class CustomUserAdmin(UserAdmin):
         (
             "Permissions",
             {
-                "fields": ("is_active", "is_verified", "is_staff", "is_superuser"),
+                "fields": (
+                    "is_active",
+                    "is_verified",
+                    "is_staff",
+                    "is_superuser",
+                ),
             },
         ),
     )

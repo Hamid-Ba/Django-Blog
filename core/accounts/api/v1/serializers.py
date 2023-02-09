@@ -2,10 +2,9 @@ from rest_framework import serializers
 from django.contrib.auth.password_validation import validate_password
 from django.core import exceptions
 from django.contrib.auth import get_user_model
-from django.contrib.sites.shortcuts import get_current_site
 
 from ... import models
-from .utils import get_tokens_for_user, Email
+from .utils import get_tokens_for_user
 from . import tasks
 
 
@@ -76,4 +75,10 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Profile
         fields = "__all__"
-        read_only_fields = ["id", "user", "email", "created_data", "updated_data"]
+        read_only_fields = [
+            "id",
+            "user",
+            "email",
+            "created_data",
+            "updated_data",
+        ]
