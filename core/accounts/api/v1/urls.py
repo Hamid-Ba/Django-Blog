@@ -6,7 +6,7 @@ from rest_framework_simplejwt.views import (
     TokenVerifyView,
 )
 
-from . import views
+from accounts.api.v1 import views
 
 urlpatterns = [
     # Auth URLs
