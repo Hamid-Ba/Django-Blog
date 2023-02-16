@@ -1,3 +1,4 @@
+---
 name: Django Test CI
 
 on:
@@ -17,6 +18,6 @@ jobs:
     - name: Setup Docker Compose
       run: docker-compose up -d
     - name: Run All Test
-      run: docker exec app sh -c "python manage.py test"
+      run: docker-compose run --rm app sh -c "python manage.py test"
     - name : Lint
-    - run : docker exec app sh -c "flake8"
+    - run : docker-compose run --rm app sh -c "flake8"
