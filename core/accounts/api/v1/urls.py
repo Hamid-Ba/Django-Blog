@@ -24,9 +24,7 @@ urlpatterns = [
     # JWT Authentication URLs
     path("token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
-    path(
-        "token/verify_token/", TokenVerifyView.as_view(), name="token_verify"
-    ),
+    path("token/verify_token/", TokenVerifyView.as_view(), name="token_verify"),
     # Use URLs
     path("profile/", views.ProfileView.as_view(), name="profile"),
 ]

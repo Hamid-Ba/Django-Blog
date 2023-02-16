@@ -17,4 +17,6 @@ jobs:
     - name: Setup Docker Compose
       run: docker-compose up -d
     - name: Run All Test
-      run: docker exec backend sh -c "python manage.py test"
+      run: docker exec app sh -c "python manage.py test"
+    - name : Lint
+    - run : docker exec app sh -c "flake8"

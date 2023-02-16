@@ -11,12 +11,8 @@ class Post(models.Model):
     status = models.BooleanField()
     published_data = models.DateTimeField()
 
-    author = models.ForeignKey(
-        sting.AUTH_USER_MODEL, on_delete=models.CASCADE
-    )
-    category = models.ForeignKey(
-        "Category", on_delete=models.SET_NULL, null=True
-    )
+    author = models.ForeignKey(sting.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    category = models.ForeignKey("Category", on_delete=models.SET_NULL, null=True)
 
     created_data = models.DateTimeField(auto_now_add=True)
     updated_data = models.DateTimeField(auto_now=True)

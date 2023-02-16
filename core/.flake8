@@ -1,6 +1,8 @@
 [flake8]
 
 exclude =
+    migrations,
+    manage.py,
     .git,
     .gitignore,
     *.pot,

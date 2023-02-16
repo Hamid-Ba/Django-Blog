@@ -1,10 +1,11 @@
 # general  modules
 django == 4.1.5
-python-decouple
-pillow
 djangorestframework
+python-decouple
+psycopg2-binary
+pillow
 
-# third party modules
+# # third party modules
 markdown       
 django-filter  
 drf-yasg[validation]
@@ -12,16 +13,14 @@ djangorestframework-simplejwt
 djoser
 django-cors-headers
 
-# email third party modules
+# # email third party modules
 django-mail-templated
 
-# refactoring & tests
-black
-flake8
-Faker
-
-# background proccess and cache
+# # background proccess and cache
 celery
 django_celery_beat
 redis
 django-redis
+
+# deployment
+gunicorn
