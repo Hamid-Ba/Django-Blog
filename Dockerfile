@@ -12,9 +12,9 @@ EXPOSE 8000
 ARG DEV=false
 RUN python -m venv /py && \
     /py/bin/pip install --upgrade pip && \
-    apk add --update --no-cache postgresql-client && \
+    apk add --update --no-cache postgresql-client jpeg-dev && \
     apk add --update --no-cache --virtual .tmp-build-deps \
-        build-base gcc python3-dev postgresql-dev musl-dev libffi-dev openssl-dev cargo  && \
+        build-base postgresql-dev libffi-dev cargo zlib zlib-dev && \
     /py/bin/pip install -r /tmp/requirements.txt && \
     if [ $DEV = "true" ] ; \
         then /py/bin/pip install -r /tmp/requirements.dev.txt ; \
@@ -24,8 +24,15 @@ RUN python -m venv /py && \
     adduser \
         --disabled-password \
         --no-create-home \
-        django-user
+        django-user && \
+    mkdir -p /vol/web/media && \
+    mkdir -p /vol/web/static && \
+    chown -R django-user:django-user /vol && \
+    chmod -R 755 /vol
 
 ENV PATH="/py/bin:$PATH"
 
 USER django-user
+
+
+# gcc python3-dev musl-dev openssl-dev
